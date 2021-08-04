@@ -20,7 +20,7 @@ curl -X POST -H "Content-Type: application/json" http://x.x.x.x/rest/abl/admin/v
 ```
 This command should return a body that contains an apiKey.  Using that API key, make a post to get the API key for the desired user (admin in this case):
 ```
-curl -X POST -H "Content-Type: application/json" -H "Authorization: CALiveAPICreator mysaapitoken:1" https://<hostname>/rest/abl/admin/v2
+curl -X GET -H "Authorization: CALiveAPICreator mysaapitoken:1" https://<hostname>/rest/abl/admin/v2
   /apikey:apikeys?sysfilter=equal(name:'Admin')
 ```
 
