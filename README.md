@@ -14,6 +14,15 @@ To pass in a certificate bundle or folder for verification, use the -c flag for 
 
 To create an API token, see instructions [here](https://techdocs.broadcom.com/us/en/ca-enterprise-software/agile-development-and-management/rally-platform-ca-agile-central/rally/integrating-top/connectors/ppm-integrations/adapter-for-jira/jira-adapter-configuration-guide.html) under Configure the App Settings.  Instead of creating a new Dashboard User, you will need to create a new admin user as you will need full read privileges in the source system and full read-write privileges in the target system.  Alternatve instructions for creating a new admin user/token can also be found [here](https://ca-broadcom.wolkenservicedesk.com/external/article?articleId=219256 ).
 
+To get an api key for the sa user, use the following curl command:
+curl -X POST -H "Content-Type: application/json" http://x.x.x.x/rest/abl/admin/v2/@authentication -d '{"username":"sa", "password":"mySaPassword"}' 
+
+This command should return a body that contains an apiKey.  Using that API key, make a post to get the API key for the desired user (admin in this case):
+
+curl -X POST -H "Content-Type: application/json" -H "Authorization: CALiveAPICreator mysaapitoken:1" https://<hostname>/rest/abl/admin/v2
+  /apikey:apikeys?sysfilter=equal(name:'Admin')
+
+
 (2) Access to and Server addresses for source and target servers 
 
 (3) If the server certificate is self-signed or internally signed, you may wish to provide the certificate so that calls to the API endpoints are trusted.  By default, the script does not verify. 
