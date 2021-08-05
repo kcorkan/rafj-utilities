@@ -33,16 +33,18 @@ The migrate command will migrate data as-is from the source to the target adapte
 ** note: The migrate command must be used with an empty target database because it also migrates identifiers.**
 
 To migrate configurations from source system to a target system:
+```
 python3 rafj.py migrate -s https://source.server.com -o sourceauthtoken -t https://target.server.com -k targetauthtoken -e configs 
-
+```
 The migration of configurations will read all configuration components from the source server and write them to the target server.  The name and "active" setting will be altered during the migration to avoid a running integration from picking it up before the migration is complete.  When the migration is completed, the name and active field will be updated to the original from the source server.  
 
 All system (including authentication data), sync_cfg and cfg_obj settings are migrated.  
 No integration_Settings will be migrated.  
 
 To migrate objects from source system to target system:  
-python3 rafj.py migrate -s https://source.server.com -o sourceauthtoken -t https://target.server.com -k targetauthtoken -e obj -p 1000
-
+```
+python3 rafj.py migrate -s https://source.server.com -o sourceauthtoken -t https://target.server.com -k targetauthtoken -e objs -g 1000
+```
 The migration of objects will only migrate ac_object and jira_object table contents to maintain the relationship between the objects in both systems.  The ac_field and jira_field tables will not be migrated because as they only act as a cache and will be refreshed when the integration is started.  
 
 If there are many objects (e.g. > 10000), you may wish to increase the pagesize to increase migration performance. 
@@ -55,14 +57,14 @@ The purge command will clear out the entities that are specified by the -e flag 
 Note that when purging configuration data from the adapter data store, all dependent object and catalyst/reaction data must be purged before configuration data can be removed.  
 
 To purge transient data from a server (this will remove catalyst and reaction data): 
-
+```
 python3 rafj.py purge -t https://target.server.to.purge -k targetserverauthtoken -p 1000 -e catalyst
-
+```
 To purge state data/object relationships from a server:
 ** note: do NOT do this in a production environment as this will delete all state data and will result in duplicate items being created in source and target systems **
-
+```
 python3 rafj.py purge -t https://target.server.to.purge -k targetserverauthtoken -p 1000 -e objs
-
+```
 To purge configuration data from a server: 
 
 ** note: all dependent data (state and transient) must be purged before configurations can be purged due to foreign key constraints in the database **
