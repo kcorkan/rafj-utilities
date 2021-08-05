@@ -123,6 +123,8 @@ def extract_and_load(s_system,s_headers,t_system, t_headers,pagesize):
         next_params = dict(parse.parse_qsl(parse.urlsplit(next_batch).query))
         next_params['pagesize'] = pagesize
         response = requests.get(next_url,headers=s_headers,params=next_params,verify=verify_cert_path)
+        print ('EXTRACT REQUEST: %s' % response.text)
+        
         dict_payload = json.loads(response.text)
         if response.status_code > 299:
             print ('Error extracting %s' % response.status_code)
@@ -158,8 +160,9 @@ def extract_and_load(s_system,s_headers,t_system, t_headers,pagesize):
         str_payload_clean = json.JSONEncoder().encode(dict_payload)
         
         t_response = requests.post(t_system,headers=t_headers,data=str_payload_clean,verify=verify_cert_path)
-        if (response.status_code > 299):
-            print (response.text)
+        print ('LOAD RESPONSE: %s' % t_response.text)
+        if (t_response.status_code > 299):
+            print (t_response.text)
         else: 
             print ('success! %s records migrated ' % len(dict_payload))
         
