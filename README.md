@@ -58,19 +58,19 @@ Note that when purging configuration data from the adapter data store, all depen
 
 To purge transient data from a server (this will remove catalyst and reaction data): 
 ```
-python3 rafj.py purge -t https://target.server.to.purge -k targetserverauthtoken -p 1000 -e catalyst
+python3 rafj.py purge -t https://target.server.to.purge -k targetserverauthtoken -g 1000 -e catalyst
 ```
 To purge state data/object relationships from a server:
 ** note: do NOT do this in a production environment as this will delete all state data and will result in duplicate items being created in source and target systems **
 ```
-python3 rafj.py purge -t https://target.server.to.purge -k targetserverauthtoken -p 1000 -e objs
+python3 rafj.py purge -t https://target.server.to.purge -k targetserverauthtoken -g 1000 -e objs
 ```
 To purge configuration data from a server: 
 
 ** note: all dependent data (state and transient) must be purged before configurations can be purged due to foreign key constraints in the database **
-
-python3 rafj.py purge -t https://target.server.to.purge -k targetserverauthtoken -p 1000 -e configs
-
+```
+python3 rafj.py purge -t https://target.server.to.purge -k targetserverauthtoken -g 1000 -e configs
+```
 ## Installation
 To install this project's package run:
 ```
