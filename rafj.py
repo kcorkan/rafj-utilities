@@ -226,9 +226,10 @@ def update_table(s_system,s_headers,t_system, t_headers, exclude_fields, include
             
 
 def clean_tables(t_system, t_headers,pagesize, entities):
-     for c in reversed(entities):
+    ordered_entities = dict(reversed(list(entities.items())))
+    for c in ordered_entities:
         print ('Cleaning %s ...' % c)
-        tgt = entities[c].format(t_system)
+        tgt = ordered_entities[c].format(t_system)
         clean_table(tgt,t_headers, pagesize)
 
 def clean_table(t_system, t_headers, pagesize):
