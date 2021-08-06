@@ -34,7 +34,7 @@ archives = {
     'errors_archive': '{0}/rest/default/orchestrator/v1/mys:errors_archive',
     'reactions_archive': '{0}/rest/default/orchestrator/v1/mys:reactions_archive'
 }
-forbidden_keys = ['@metadata','webhook_id','payloadToObjSpec','catalyst_to_reaction_spec']
+forbidden_keys = ['@metadata','webhook_id','payloadToObjSpec','catalyst_to_reaction_spec','webhook_to_object_spec']
 verify_cert_path = False #'kotsadm.pem'
 
 auth_str = 'CALiveAPICreator {0}:1'
