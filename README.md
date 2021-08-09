@@ -142,24 +142,22 @@ rafj-token.py delete -t http://0.0.0.0:8080 -p mySAPassword -k tHEoLDToKeN123
 ```
 
 ### Usage 
-python3 rafj-token.py list  -t https://x.x.x.x -p mySApassword 
+python3 rafj-token.py list  -t https://x.x.x.x -p mySApassword [-c /path/to/cert.pem]
 
-python3 rafj-token.py generate  [-l desired token length] 
+python3 rafj-token.py generate  [-l desired token length] [-c /path/to/cert.pem]
 
-python3 rafj-token.py copy -t https://x.x.x.x -p mySApassword -o oldToken -k newToken [-n newTokenName]
+python3 rafj-token.py copy -t https://x.x.x.x -p mySApassword -o oldToken -k newToken [-n newTokenName] [-c /path/to/cert.pem]
 
-python3 rafj-token.py disable -t https://x.x.x.x -p mySApassword -k tokenToDisable
+python3 rafj-token.py disable -t https://x.x.x.x -p mySApassword -k tokenToDisable [-c /path/to/cert.pem]
 
+python3 rafj-token.py enable -t https://x.x.x.x -p mySApassword -k tokenToENable [-c /path/to/cert.pem]
 
+python3 rafj-token.py delete -t https://x.x.x.x -p mySApassword -k tokenToDelete [-c /path/to/cert.pem]
 
-entities are one of the following:
-* cfgs
-* objs
-* catalysts
-* reactions
-* archives
+python3 rafj-token.py update_adapter -t https://x.x.x.x -p mySApassword -k new_token [-c /path/to/cert.pem]
 
-python3 rafj.py migrate -s source server -t target_server -e configs|objs|catalysts|reactions  [-g pagesize] [-o source_token] [-k target_token] [-c /path/to/cert.pem]
+python3 rafj-token.py update_config -t https://x.x.x.x -p mySApassword -k new_token [-c /path/to/cert.pem]
+
 
 ## Installation
 To install this project's package run:
