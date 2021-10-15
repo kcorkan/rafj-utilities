@@ -20,6 +20,13 @@ To pass in a certificate bundle or folder for verification, use the -c flag for 
 
 To create an API token, see instructions [here](https://techdocs.broadcom.com/us/en/ca-enterprise-software/agile-development-and-management/rally-platform-ca-agile-central/rally/integrating-top/connectors/ppm-integrations/adapter-for-jira/jira-adapter-configuration-guide.html) under Configure the App Settings.  Instead of creating a new Dashboard User, you will need to create a new admin user as you will need full read privileges in the source system and full read-write privileges in the target system.  Alternatve instructions for creating a new admin user/token can also be found [here](https://ca-broadcom.wolkenservicedesk.com/external/article?articleId=219256 ).
 
+To get a token to authenticate to the orchestrator API (used for migration and purging), use the following curl command: 
+```
+curl -X POST -H "Content-Type: application/json" http://x.x.x.x/rest/default/orchestrator/v1/@authentication -d '{"username":"admin", "password":"adminPassword"}' 
+```
+This will return a response that includes an apiKey, which can be used as a temporary token for authentication as described below.  
+
+
 To get an api key for the sa user, use the following curl command:
 ```
 curl -X POST -H "Content-Type: application/json" http://x.x.x.x/rest/abl/admin/v2/@authentication -d '{"username":"sa", "password":"mySaPassword"}' 
