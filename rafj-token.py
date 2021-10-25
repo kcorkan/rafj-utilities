@@ -91,16 +91,19 @@ def get_sa_auth_key(t_system, sa_pwd, verify_cert_path):
     print (auth_response.text)
     if (auth_response.status_code > 299):
         print ('Error getting auth token: %s' % auth_response.text)
+        print ('URL: %s' % SA_AUTH.format(t_system))
+        print ('...RETURNING EMPTY AUTH TOKEN')
     else:
         dict_auth = json.loads(auth_response.text)
-    return dict_auth['apikey']
+        return dict_auth['apikey']
+    return ""
 
 def token_list(host,headers):
     params = FILTER_VALUE.format('is_created_by_auth_service','false')
     apikey_resp = requests.get(SA_APITOKENS.format(host),headers=headers,params={'sysfilter': params},verify=verify_cert_path)
     apikeys = json.loads(apikey_resp.text)
     if apikey_resp.status_code > 299:
-        print('error')
+        print ('Error getting auth token: %s' % apikey_resp.text)
     else:      
         for a in apikeys:
             active_str = ""
@@ -117,7 +120,7 @@ def token_copy(host,headers,old_token,new_token, new_token_name):
     apikey_resp = requests.get(SA_APITOKENS.format(host),headers=headers,params={'sysfilter': apikey_params},verify=verify_cert_path)
     apikeys = json.loads(apikey_resp.text)
     if apikey_resp.status_code > 299:
-        print('error')
+        print ('Error getting auth tokens: %s' % apikey_resp.text)
     else: 
         print ('apikey_resp: %s ' % apikey_resp.text)
 
