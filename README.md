@@ -83,7 +83,7 @@ python3 rafj.py purge -t https://target.server.to.purge -k targetserverauthtoken
 
 python3 rafj.py purge  -t https://x.x.x.x -g (pagesize) -e (entities) [-c (path to cert public key)]
 entities are one of the following:
-* cfgs
+* configs
 * objs
 * catalysts
 * reactions
