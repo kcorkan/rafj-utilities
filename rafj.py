@@ -241,19 +241,20 @@ def clean_table(t_system, t_headers, pagesize):
         next_batch = None
         delete_list = []
         print ('...found %s records...' % len(dict_payload))
-        for o in dict_payload:   
-            if '@metadata' in o.keys():
-                if 'next_batch' in o['@metadata'].keys():
-                    next_batch = o['@metadata']['next_batch']
-                else:
-                    o['@metadata']['action'] = 'DELETE'
-                    delete_list.append(o)
-        delete_data = json.JSONEncoder().encode(delete_list)
-        response = requests.put(t_system,headers=t_headers,data=delete_data,verify=verify_cert_path)
-        if (response.status_code > 299):
-            print (response.text)
-        else: 
-            print ('success! %s records cleaned ' % len(delete_list))
+        if len(dict_payload) > 0:
+            for o in dict_payload:   
+                if '@metadata' in o.keys():
+                    if 'next_batch' in o['@metadata'].keys():
+                        next_batch = o['@metadata']['next_batch']
+                    else:
+                        o['@metadata']['action'] = 'DELETE'
+                        delete_list.append(o)
+            delete_data = json.JSONEncoder().encode(delete_list)
+            response = requests.put(t_system,headers=t_headers,data=delete_data,verify=verify_cert_path)
+            if (response.status_code > 299):
+                print (response.text)
+            else: 
+                print ('success! %s records cleaned ' % len(delete_list))
         
 
 if (__name__ == "__main__"):
